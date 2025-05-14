@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400;900&display=swap" rel="stylesheet">
+    <title>Maple Equipment</title>
+    <style>
+        body {
+            cursor: url('normal-cursor.png'), auto;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            background-color: #383838;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            /* Prevent horizontal overflow */
+        
+        }
+
+        header {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            width: 100%;
+            padding: 8px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        header .logo {
+            height: auto;
+            width: 150px;
+            margin-bottom: -8px;
+        }
+
+        header .header-text {
+            margin-bottom: -12px;
+            text-align: left;
+        }
+
+        header {}
+
+        header h1 {
+            color: var(--blue);
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: black;
+            text-shadow: 3px 3px #000;
+            -webkit-text-fill-color: #ff1100;
+            background-clip: border-box;
+            font-family: Londrina Solid, sans-serif;
+            margin: 0;
+            font-size: 3em;
+        }
+
+        header p {
+            text-shadow: 3px 3px #000;
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .container {
+            display: flex;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 32px;
+            text-align: center;
+            margin: 20px;
+            gap: 32px;
+        }
+
+        .panel h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: white;
+       
+        }
+
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: #0276be;
+
+            overflow: hidden;
+   
+            justify-content: center;
+            max-width: 100%;
+      
+        }
+
+        .canvass-container {
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #0276be;
+
+            padding: 20px;
+    
+            margin: 10px;
+            overflow: hidden;
+   
+            justify-content: center;
+            max-width: 100%;
+        }
+
+        .inner-canvas-container {
+            display: none;
+        
+            flex-direction: column;
+            align-items: center;
+            background-color: #fb2e0000;
+      
+            overflow: hidden;
+          
+            justify-content: center;
+            max-width: 100%;
+    
+        }
+
+        #upload-container {
+            width: 600px;
+            height: 600px;
+            background-color: rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            z-index: 1;
+            text-align: center;
+            color: #ffffff;
+            cursor: pointer;
+            border: 2px dashed #ffffff;
+
+        }
+
+        #upload-container:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+            cursor: url('hover-cursor.png'), auto;
+        }
+
+        #upload-container.hidden {
+            display: none;
+        }
+
+        #upload-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        #upload {
+            display: none;
+    
+        }
+
+        #canvas {
+            display: none;
+       
+            border: none;
+            min-height: 400px;
+      
+            max-height: 600px;
+     
+        }
+
+        .base-image {
+            width: 75px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .accessory {
+            width: 100px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: transform 0.2s;
+        }
+
+        .accessory:hover,
+        .base-image:hover {
+            transform: scale(1.1);
+            cursor: url('hover-cursor.png'), auto;
+        }
+
+        
+
+     
+        img.accessory {
+            background-color: white;
+            height: 150px;
+            width: 200px;
+            border: 3px solid black;
+            cursor: pointer;
+            margin: 5px;
+            object-fit: contain;
+        }
+    </style>
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+</head>
+
+<body>
+    <header>
+
+        <div class="header-text">
+            <h1>Maple Accessories</h1>
+            <p>Powered by <span style="color: #ff1100;">Self Generator Equipment</span> </p>
+        </div>
+    </header>
+  
+    <div class="container">
+        <div class="panel" id="left-panel">
+            <img src="weapon.png" class="accessory" alt="Glasses">
+            <img src="Necklace.png" class="accessory" alt="Drool4">
+            <img src="Ring.png" class="accessory" alt="Hat">
+            <img src="Ring5.png" class="accessory" alt="Glasses">
+            <img src="glove.png" class="accessory" alt="Glasses">
+            <img src="black bear.png" class="accessory" alt="Drool4">
+            <img src="R.png" class="accessory" alt="Hat">
+            
+        </div>
+        <div class="panel" id="left-panel">
+            <img src="bottom.png" class="accessory" alt="Glasses">
+            <img src="belt.png" class="accessory" alt="Drool4">
+            <img src="glove.png" class="accessory" alt="Hat">
+            <img src="emblem.png" class="accessory" alt="Glasses">
+            <img src="Ring3.png" class="accessory" alt="Glasses">
+            <img src="white panda.png" class="accessory" alt="Drool4">
+            <img src="belt.png" class="accessory" alt="Hat">
+            
+            
+        </div>
+        <div class="canvass-container" id="canvas-container">
+            <div id="upload-container">
+                <div id="upload-icon">📁</div>
+                <div class="uploader-placeholder">Upload your image to edit</div>
+                <input type="file" id="upload" accept="image/*">
+            </div>
+            <div class="inner-canvas-container" id="inner-canvas-container">
+                <canvas id="canvas"></canvas>
+                <div class="buttons-wrapper" id="buttons-wrapper">
+                    <button id="reset" class="button">
+                        <span>Reset</span>
+                    </button>
+                    <button id="download" class="button">
+                        <span>Download</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="right-panel">
+            <img src="visitor set.png" class="accessory" alt="Drool1">
+            <img src="hat.png" class="accessory" alt="Drool2">
+            <img src="Ring3.png" class="accessory" alt="Drool3">
+            <img src="tiger.png" class="accessory" alt="Drool3">
+            <img src="Necklace.png" class="accessory" alt="Drool1">
+            <img src="emblem.png" class="accessory" alt="Drool2">
+            <img src="R.png" class="accessory" alt="Drool3">
+  
+            </div>
+            <div class="panel" id="right-panel">
+                <img src="bottom.png" class="accessory" alt="Drool1">
+                <img src="glove.png" class="accessory" alt="Drool2">
+                <img src="ring5.png" class="accessory" alt="Drool3">
+                <img src="visitor set.png" class="accessory" alt="Drool3">
+                <img src="white panda.png" class="accessory" alt="Drool1">
+                <img src="belt.png" class="accessory" alt="Drool2">
+                <img src="Necklace.png" class="accessory" alt="Drool3">
+        </div>
+    </div>
+    <script>
+        const canvasElement = document.getElementById('canvas');
+        const fabricCanvas = new fabric.Canvas(canvasElement);
+        const upload = document.getElementById('upload');
+        const uploadContainer = document.getElementById('upload-container');
+        const innerCanvasContainer = document.getElementById('inner-canvas-container');
+        const download = document.getElementById('download');
+        const reset = document.getElementById('reset');
+        const buttonsWrapper = document.getElementById('buttons-wrapper');
+        const canvasContainer = document.getElementById('canvas-container');
+        let baseImage = null;
+
+      
+        upload.addEventListener('change', (e) => {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                loadBaseImage(event.target.result);
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        uploadContainer.addEventListener('click', () => {
+            upload.click();
+        });
+
+     
+        document.querySelectorAll('.base-image').forEach(item => {
+            item.addEventListener('click', (e) => {
+                loadBaseImage(e.target.src);
+            });
+        });
+
+        function loadBaseImage(src) {
+            fabric.Image.fromURL(src, (img) => {
+                fabricCanvas.clear();
+                baseImage = img;
+
+            
+                const containerWidth = canvasContainer.clientWidth - 40; 
+                const maxHeight = 600;
+                const minHeight = 400;
+
+                let scale = Math.min(containerWidth / img.width, maxHeight / img.height);
+
+                if (img.height * scale < minHeight) {
+                    scale = minHeight / img.height;
+                }
+
+                img.scale(scale);
+                fabricCanvas.setWidth(img.width * scale);
+                fabricCanvas.setHeight(img.height * scale);
+                fabricCanvas.add(img).sendToBack().renderAll();
+                img.selectable = false; 
+                uploadContainer.classList.add('hidden');
+                innerCanvasContainer.style.display = 'flex'; 
+                canvasElement.style.display = 'block'; 
+                buttonsWrapper.style.display = 'flex'; 
+                updateCanvasContainerSize();
+            });
+        }
+
+
+        document.querySelectorAll('.accessory').forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (baseImage) {
+                    fabric.Image.fromURL(e.target.src, (img) => {
+                        img.scale(0.3);
+                        fabricCanvas.add(img).setActiveObject(img).renderAll();
+                    });
+                }
+            });
+        });
+
+
+        fabric.Object.prototype.controls.deleteControl = new fabric.Control({
+            x: 0.5,
+            y: -0.5,
+            offsetY: -16,
+            cursorStyle: 'pointer',
+            mouseUpHandler: deleteObject,
+            render: renderIcon,
+            cornerSize: 24
+        });
+
+        function deleteObject(eventData, transform) {
+            const target = transform.target;
+            const canvas = target.canvas;
+            canvas.remove(target);
+            canvas.requestRenderAll();
+        }
+
+        function renderIcon(ctx, left, top, styleOverride, fabricObject) {
+            ctx.save();
+            ctx.fillStyle = '#FF0000';
+            ctx.font = '24px Arial';
+            ctx.fillText('x', left - 6, top + 6);
+            ctx.restore();
+        }
+
+    
+        download.addEventListener('click', () => {
+            fabricCanvas.discardActiveObject().renderAll();
+            const dataURL = fabricCanvas.toDataURL({
+                format: 'png',
+                quality: 1
+            });
+            const link = document.createElement('a');
+            link.download = 'canvas-image.png';
+            link.href = dataURL;
+            link.click();
+        });
+
+    
+        reset.addEventListener('click', () => {
+            fabricCanvas.clear();
+            baseImage = null;
+            uploadContainer.classList.remove('hidden');
+            innerCanvasContainer.style.display = 'none'; 
+            canvasElement.style.display = 'none'; 
+            buttonsWrapper.style.display = 'none';
+            updateCanvasContainerSize();
+        });
+
+   
+        function updateCanvasContainerSize() {
+            if (baseImage) {
+                const canvasWidth = fabricCanvas.getWidth();
+                const canvasHeight = fabricCanvas.getHeight();
+                canvasContainer.style.width = (canvasWidth + 40) + 'px';
+                canvasContainer.style.height = (canvasHeight + 40) + 'px';
+            } else {
+                canvasContainer.style.width = '600px';
+                canvasContainer.style.height = '600px';
+            }
+        }
+
+     
+        updateCanvasContainerSize();
+    </script>
+</body>
+
+</html>
